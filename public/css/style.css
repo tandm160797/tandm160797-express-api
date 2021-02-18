@@ -13,8 +13,15 @@
   background-color: #13aa52;
 }
 
-.title {
+.intro {
   text-align: center;
-  font-size: 7rem;
   color: #fff;
+}
+
+.title {
+  font-size: 6rem;
+}
+
+.technology {
+  font-size: 3rem;
 }
