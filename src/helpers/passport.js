@@ -8,7 +8,7 @@ const localOptions = {
   usernameField: 'email',
   passwordField: 'password'
 };
-const jwtSecretKey = process.env.JWT_SECRET_KEY || 'You are never KNOW!!!';
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
 const jwtExp = process.env.JWT_EXP || 24 * 60 * 60;
 const jwtOptions = {
   secretOrKey: jwtSecretKey,

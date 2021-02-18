@@ -7,8 +7,6 @@ import { errLastHandler } from './middlewares';
 
 (async () => {
   const app = express();
-  const host = process.env.HOST || '127.0.0.1';
-  const port = process.env.PORT || 3000;
 
   app.set('view engine', 'pug');
   app.set('views', path.join(path.resolve(), 'public/views'));
@@ -20,7 +18,7 @@ import { errLastHandler } from './middlewares';
   await mongoDB.connect();
   app.use(errLastHandler);
 
-  app.listen(port, () => {
-    console.log(`App listening at ${host}:${port}`);
+  app.listen(() => {
+    console.log('App start successfully!');
   });
 })();

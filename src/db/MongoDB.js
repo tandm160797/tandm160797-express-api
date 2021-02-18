@@ -3,9 +3,9 @@ import Mongoose from 'mongoose';
 class MongoDB {
   async connect() {
     try {
-      const dbUser = process.env.DB_USER || 'root';
-      const dbPassword = process.env.DB_PASSWORD || 'root';
-      const dbName = process.env.DB_NAME || 'express-api';
+      const dbUser = process.env.DB_USER;
+      const dbPassword = process.env.DB_PASSWORD;
+      const dbName = process.env.DB_NAME;
       const connectString = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.ewyk4.mongodb.net/${dbName}?retryWrites=true&w=majority`;
       const mongooseOptions = {
         useNewUrlParser: true,

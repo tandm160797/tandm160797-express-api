@@ -3,7 +3,7 @@ import { passport } from './../helpers';
 
 export const auth = async (req, res, next) => {
   let jwtToken = req.headers.authorization;
-  const jwtSecretKey = process.env.JWT_SECRET_KEY || 'You are never KNOW!!!';
+  const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
   if (jwtToken) {
     jwtToken = jwtToken.replace('Bearer ', '');
