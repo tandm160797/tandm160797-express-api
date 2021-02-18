@@ -18,7 +18,7 @@ import { errLastHandler } from './middlewares';
   await mongoDB.connect();
   app.use(errLastHandler);
 
-  app.listen(() => {
+  app.listen(process.env.PORT, () => {
     console.log('App start successfully!');
   });
 })();

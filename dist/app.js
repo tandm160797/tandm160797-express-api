@@ -16,8 +16,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (async () => {
   const app = (0, _express.default)();
-  const host = process.env.HOST || '127.0.0.1';
-  const port = process.env.PORT || 3000;
   app.set('view engine', 'pug');
   app.set('views', _path.default.join(_path.default.resolve(), 'public/views'));
   app.use(_bodyParser.default.json());
@@ -28,7 +26,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   (0, _routes.default)(app);
   await _db.mongoDB.connect();
   app.use(_middlewares.errLastHandler);
-  app.listen(port, () => {
-    console.log(`App listening at ${host}:${port}`);
+  app.listen(() => {
+    console.log('App start successfully!');
   });
 })();
