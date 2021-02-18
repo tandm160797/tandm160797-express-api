@@ -1,13 +1,13 @@
-import { User } from "$models";
-import { passport } from "$helpers";
+import { User } from './../models';
+import { passport } from './../../helpers';
 
 class UserController {
   async index(req, res, next) {
     const users = await User.find().exec();
     return res.status(200).json({
-      stt: "success",
-      msg: "Get users successfully",
-      data: users,
+      stt: 'success',
+      msg: 'Get users successfully',
+      data: users
     });
   }
 
@@ -22,9 +22,9 @@ class UserController {
     try {
       await user.save();
       return res.status(200).json({
-        stt: "success",
-        msg: "Register account successfully",
-        data: user,
+        stt: 'success',
+        msg: 'Register account successfully',
+        data: user
       });
     } catch (err) {
       return next(err);
@@ -32,21 +32,21 @@ class UserController {
   }
 
   login(req, res, next) {
-    passport.authenticate("local", { session: false }, (err, data, msg) => {
+    passport.authenticate('local', { session: false }, (err, data, msg) => {
       if (err) {
         return next(err);
       }
       if (!data) {
         return res.status(401).json({
-          stt: "failure",
+          stt: 'failure',
           msg,
-          data: null,
+          data: null
         });
       }
       return res.status(200).json({
-        stt: "success",
+        stt: 'success',
         msg,
-        data,
+        data
       });
     })(req, res, next);
   }
