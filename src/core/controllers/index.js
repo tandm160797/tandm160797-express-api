@@ -1,3 +1,4 @@
 import userController from './UserController';
+import postController from './PostController';
 import siteController from './SiteController';
-export { userController, siteController };
+export { userController, postController, siteController };

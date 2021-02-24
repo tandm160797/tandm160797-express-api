@@ -11,11 +11,37 @@ var _helpers = require("./../../helpers");
 
 class UserController {
   async index(req, res, next) {
-    const users = await _models.User.find().exec();
+    const {
+      query
+    } = req;
+    const {
+      limit,
+      page
+    } = query;
+    const totalRows = await _models.User.find().countDocuments().exec();
+    let users;
+
+    if (limit && query) {
+      users = await Post.find().limit(limit).skip(limit * page).exec();
+    } else {
+      try {
+        users = await _models.User.find().exec();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
     return res.status(200).json({
       stt: 'success',
       msg: 'Get users successfully',
-      data: users
+      data: {
+        users,
+        pagination: {
+          page,
+          limit,
+          totalRows
+        }
+      }
     });
   }
 

@@ -3,11 +3,38 @@ import { passport } from './../../helpers';
 
 class UserController {
   async index(req, res, next) {
-    const users = await User.find().exec();
+    const { query } = req;
+    let { limit, page } = query;
+    const totalRows = await User.find().countDocuments().exec();
+    let users;
+
+    limit = parseInt(limit);
+    page = parseInt(page);
+
+    if (limit && query) {
+      users = await Post.find()
+        .limit(limit)
+        .skip(limit * page)
+        .exec();
+    } else {
+      try {
+        users = await User.find().exec();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
     return res.status(200).json({
       stt: 'success',
       msg: 'Get users successfully',
-      data: users
+      data: {
+        users,
+        pagination: {
+          limit,
+          page,
+          totalRows
+        }
+      }
     });
   }
 

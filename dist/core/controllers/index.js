@@ -9,6 +9,12 @@ Object.defineProperty(exports, "userController", {
     return _UserController.default;
   }
 });
+Object.defineProperty(exports, "postController", {
+  enumerable: true,
+  get: function () {
+    return _PostController.default;
+  }
+});
 Object.defineProperty(exports, "siteController", {
   enumerable: true,
   get: function () {
@@ -17,6 +23,8 @@ Object.defineProperty(exports, "siteController", {
 });
 
 var _UserController = _interopRequireDefault(require("./UserController"));
+
+var _PostController = _interopRequireDefault(require("./PostController"));
 
 var _SiteController = _interopRequireDefault(require("./SiteController"));
 

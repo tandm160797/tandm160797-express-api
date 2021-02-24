@@ -26,7 +26,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   (0, _routes.default)(app);
   await _db.mongoDB.connect();
   app.use(_middlewares.errLastHandler);
-  app.listen(() => {
+  app.listen(process.env.PORT, () => {
     console.log('App start successfully!');
   });
 })();
