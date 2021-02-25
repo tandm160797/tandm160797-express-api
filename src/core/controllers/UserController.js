@@ -27,7 +27,6 @@ class UserController {
     }
 
     return res.status(200).json({
-      stt: 'success',
       msg: 'Get users successfully',
       users,
       pagination: {
@@ -49,7 +48,6 @@ class UserController {
     try {
       await user.save();
       return res.status(200).json({
-        stt: 'success',
         msg: 'Register account successfully',
         user
       });
@@ -65,12 +63,10 @@ class UserController {
       }
       if (!data) {
         return res.status(401).json({
-          stt: 'failure',
           msg
         });
       }
       return res.status(200).json({
-        stt: 'success',
         msg,
         user: data
       });

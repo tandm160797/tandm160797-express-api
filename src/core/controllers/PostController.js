@@ -26,7 +26,6 @@ class PostController {
     }
 
     return res.status(200).json({
-      stt: 'success',
       msg: 'Get posts successfully',
       posts,
       pagination: {
@@ -43,7 +42,6 @@ class PostController {
     try {
       await post.save();
       return res.status(200).json({
-        stt: 'success',
         msg: 'Create post successfully',
         post
       });
