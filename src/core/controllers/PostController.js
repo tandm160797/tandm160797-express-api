@@ -16,6 +16,8 @@ class PostController {
         .skip(limit * page)
         .exec();
     } else {
+      limit = totalRows;
+      page = 1;
       try {
         posts = await Post.find().exec();
       } catch (err) {

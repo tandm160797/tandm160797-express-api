@@ -17,6 +17,8 @@ class UserController {
         .skip(limit * page)
         .exec();
     } else {
+      limit = totalRows;
+      page = 1;
       try {
         users = await User.find().exec();
       } catch (err) {
