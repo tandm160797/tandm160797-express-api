@@ -14,16 +14,21 @@ class UserController {
     const {
       query
     } = req;
-    const {
+    let {
       limit,
       page
     } = query;
     const totalRows = await _models.User.find().countDocuments().exec();
     let users;
+    limit = parseInt(limit);
+    page = parseInt(page);
 
     if (limit && query) {
       users = await Post.find().limit(limit).skip(limit * page).exec();
     } else {
+      limit = totalRows;
+      page = 1;
+
       try {
         users = await _models.User.find().exec();
       } catch (err) {
@@ -32,15 +37,12 @@ class UserController {
     }
 
     return res.status(200).json({
-      stt: 'success',
       msg: 'Get users successfully',
-      data: {
-        users,
-        pagination: {
-          page,
-          limit,
-          totalRows
-        }
+      users,
+      pagination: {
+        limit,
+        page,
+        totalRows
       }
     });
   }
@@ -62,9 +64,8 @@ class UserController {
     try {
       await user.save();
       return res.status(200).json({
-        stt: 'success',
         msg: 'Register account successfully',
-        data: user
+        user
       });
     } catch (err) {
       return next(err);
@@ -81,16 +82,13 @@ class UserController {
 
       if (!data) {
         return res.status(401).json({
-          stt: 'failure',
-          msg,
-          data: null
+          msg
         });
       }
 
       return res.status(200).json({
-        stt: 'success',
         msg,
-        data
+        user: data
       });
     })(req, res, next);
   }

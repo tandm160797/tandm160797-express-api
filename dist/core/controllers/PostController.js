@@ -24,6 +24,9 @@ class PostController {
     if (limit && query) {
       posts = await _models.Post.find().limit(limit).skip(limit * page).exec();
     } else {
+      limit = totalRows;
+      page = 1;
+
       try {
         posts = await _models.Post.find().exec();
       } catch (err) {
@@ -32,15 +35,12 @@ class PostController {
     }
 
     return res.status(200).json({
-      stt: 'success',
       msg: 'Get posts successfully',
-      data: {
-        posts,
-        pagination: {
-          page,
-          limit,
-          totalRows
-        }
+      posts,
+      pagination: {
+        limit,
+        page,
+        totalRows
       }
     });
   }
@@ -54,9 +54,8 @@ class PostController {
     try {
       await post.save();
       return res.status(200).json({
-        stt: 'success',
         msg: 'Create post successfully',
-        data: post
+        post
       });
     } catch (err) {
       return next(err);
