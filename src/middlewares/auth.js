@@ -30,8 +30,7 @@ export const auth = async (req, res, next) => {
   } catch (err) {
     const jsonRes = {
       stt: 'failure',
-      code: 401,
-      msg: ''
+      code: 401
     };
     switch (err.name) {
       case 'TokenExpiredError':
