@@ -13,7 +13,7 @@ class PostController {
     if (limit && query) {
       posts = await Post.find()
         .limit(limit)
-        .skip(limit * page)
+        .skip(limit * (page - 1))
         .exec();
     } else {
       limit = totalRows;
