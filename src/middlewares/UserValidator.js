@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import { User } from './../core/models';
-import { successResponse, errorResponse } from './../helpers/response';
 
 export default class UserValidator {
   static async register(req, res, next) {
@@ -22,14 +21,22 @@ export default class UserValidator {
     const { error, value } = schema.validate(body);
 
     if (error) {
-      return res.status(400).json(errorResponse(error.message));
+      return res.status(200).json({
+        stt: 'failure',
+        code: 400,
+        msg: error.message
+      });
     }
 
     const { email } = value;
     try {
       const user = await User.findOne({ email });
       if (user) {
-        return res.status(400).json(errorResponse('Email exist'));
+        return res.status(200).json({
+          stt: 'failure',
+          code: 400,
+          msg: 'Email exist'
+        });
       }
     } catch (err) {
       return next(err);

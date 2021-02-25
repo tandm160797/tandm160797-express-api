@@ -9,8 +9,6 @@ var _joi = _interopRequireDefault(require("joi"));
 
 var _models = require("./../core/models");
 
-var _response = require("./../helpers/response");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class UserValidator {
@@ -42,7 +40,11 @@ class UserValidator {
     } = schema.validate(body);
 
     if (error) {
-      return res.status(400).json((0, _response.errorResponse)(error.message));
+      return res.status(200).json({
+        stt: 'failure',
+        code: 400,
+        msg: error.message
+      });
     }
 
     const {
@@ -55,7 +57,11 @@ class UserValidator {
       });
 
       if (user) {
-        return res.status(400).json((0, _response.errorResponse)('Email exist'));
+        return res.status(200).json({
+          stt: 'failure',
+          code: 400,
+          msg: 'Email exist'
+        });
       }
     } catch (err) {
       return next(err);

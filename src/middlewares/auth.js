@@ -18,7 +18,9 @@ export const auth = async (req, res, next) => {
           return next(err);
         }
         if (!data) {
-          return res.status(401).json({
+          return res.status(200).json({
+            stt: 'failure',
+            code: 401,
             msg
           });
         }
@@ -27,6 +29,8 @@ export const auth = async (req, res, next) => {
     )(req, res, next);
   } catch (err) {
     const jsonRes = {
+      stt: 'failure',
+      code: 401,
       msg: ''
     };
     switch (err.name) {
@@ -46,6 +50,6 @@ export const auth = async (req, res, next) => {
             break;
         }
     }
-    return res.status(401).json(jsonRes);
+    return res.status(200).json(jsonRes);
   }
 };
