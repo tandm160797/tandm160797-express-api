@@ -27,13 +27,11 @@ class UserController {
     return res.status(200).json({
       stt: 'success',
       msg: 'Get users successfully',
-      data: {
-        users,
-        pagination: {
-          limit,
-          page,
-          totalRows
-        }
+      users,
+      pagination: {
+        limit,
+        page,
+        totalRows
       }
     });
   }
@@ -51,7 +49,7 @@ class UserController {
       return res.status(200).json({
         stt: 'success',
         msg: 'Register account successfully',
-        data: user
+        user
       });
     } catch (err) {
       return next(err);
@@ -66,14 +64,13 @@ class UserController {
       if (!data) {
         return res.status(401).json({
           stt: 'failure',
-          msg,
-          data: null
+          msg
         });
       }
       return res.status(200).json({
         stt: 'success',
         msg,
-        data
+        user: data
       });
     })(req, res, next);
   }

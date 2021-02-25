@@ -26,13 +26,11 @@ class PostController {
     return res.status(200).json({
       stt: 'success',
       msg: 'Get posts successfully',
-      data: {
-        posts,
-        pagination: {
-          limit,
-          page,
-          totalRows
-        }
+      posts,
+      pagination: {
+        limit,
+        page,
+        totalRows
       }
     });
   }
@@ -45,7 +43,7 @@ class PostController {
       return res.status(200).json({
         stt: 'success',
         msg: 'Create post successfully',
-        data: post
+        post
       });
     } catch (err) {
       return next(err);
