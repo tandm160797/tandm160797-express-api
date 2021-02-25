@@ -19,9 +19,7 @@ export const auth = async (req, res, next) => {
         }
         if (!data) {
           return res.status(401).json({
-            stt: 'failure',
-            msg,
-            data: null
+            msg
           });
         }
         return next();
@@ -29,9 +27,7 @@ export const auth = async (req, res, next) => {
     )(req, res, next);
   } catch (err) {
     const jsonRes = {
-      stt: 'failure',
-      msg: '',
-      data: null
+      msg: ''
     };
     switch (err.name) {
       case 'TokenExpiredError':
