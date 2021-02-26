@@ -5,6 +5,7 @@ class UserController {
   async index(req, res, next) {
     const { query } = req;
     let { limit, page } = query;
+    let { username_like } = query;
     const totalRows = await User.find().countDocuments().exec();
     let users;
 
@@ -12,10 +13,18 @@ class UserController {
     page = parseInt(page);
 
     if (limit && query) {
-      users = await Post.find()
-        .limit(limit)
-        .skip(limit * (page - 1))
-        .exec();
+      if (title_like) {
+        const rgx = new RegExp(username_like, 'i');
+        users = await User.find({ username: { $regex: rgx } })
+          .limit(limit)
+          .skip(limit * (page - 1))
+          .exec();
+      } else {
+        users = await User.find()
+          .limit(limit)
+          .skip(limit * (page - 1))
+          .exec();
+      }
     } else {
       limit = totalRows;
       page = 1;

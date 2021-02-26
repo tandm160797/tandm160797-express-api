@@ -4,6 +4,7 @@ class PostController {
   async index(req, res, next) {
     const { query } = req;
     let { limit, page } = query;
+    const { title_like } = query;
     const totalRows = await Post.find().countDocuments().exec();
     let posts;
 
@@ -11,10 +12,18 @@ class PostController {
     page = parseInt(page);
 
     if (limit && query) {
-      posts = await Post.find()
-        .limit(limit)
-        .skip(limit * (page - 1))
-        .exec();
+      if (title_like) {
+        const rgx = new RegExp(title_like, 'i');
+        posts = await Post.find({ title: { $regex: rgx } })
+          .limit(limit)
+          .skip(limit * (page - 1))
+          .exec();
+      } else {
+        posts = await Post.find()
+          .limit(limit)
+          .skip(limit * (page - 1))
+          .exec();
+      }
     } else {
       limit = totalRows;
       page = 1;
