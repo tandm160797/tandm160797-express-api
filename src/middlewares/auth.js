@@ -10,23 +10,19 @@ export const auth = async (req, res, next) => {
   }
   try {
     jwt.verify(jwtToken, jwtSecretKey);
-    return passport.authenticate(
-      'jwt',
-      { session: false },
-      (err, data, msg) => {
-        if (err) {
-          return next(err);
-        }
-        if (!data) {
-          return res.status(200).json({
-            stt: 'failure',
-            code: 401,
-            msg
-          });
-        }
-        return next();
+    passport.authenticate('jwt', { session: false }, (err, data, msg) => {
+      if (err) {
+        return next(err);
       }
-    )(req, res, next);
+      if (!data) {
+        return res.status(200).json({
+          stt: 'failure',
+          code: 401,
+          msg
+        });
+      }
+      return next();
+    })(req, res, next);
   } catch (err) {
     const jsonRes = {
       stt: 'failure',
